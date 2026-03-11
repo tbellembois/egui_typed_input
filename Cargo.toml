@@ -2,7 +2,7 @@
 name = "egui-typed-input"
 version = "0.1.2"
 edition = "2024"
-description = "Type safe parsed egui text inputs, with input checking"
+description = "Type safe parsed egui text inputs, with user input checking"
 # based on work from SquareMan and BfBB-Clash
 authors = ["TimTheBig"]
 
@@ -12,7 +12,7 @@ readme = "README.md"
 documentation = "https://docs.rs/egui_typed_input"
 repository = "https://github.com/TimTheBig/egui_typed_input"
 
-keywords = ["egui", "text_edit", "type_checked"]
+keywords = ["egui", "text_edit", "type_checked", "egui_parse"]
 categories = ["gui"]
 
 [dependencies]

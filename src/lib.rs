@@ -43,9 +43,13 @@ mod impls;
 /// # }
 /// ```
 /// See hex color example (color_hex.rs) and number examples (number.rs) for more
+#[must_use = "The input parsing buffer must be used in a ui input"]
 pub struct ValText<T, E> {
+    /// The current text buffer
     text: String,
+    /// The value parsed from `text` if not empty (Option) and valid (Result)
     parsed_val: Option<Result<T, E>>,
+    /// A function run each time the text changes parsing it
     value_parser: Box<dyn Fn(&str) -> Result<T, E>>,
     /// Whether a user input should be added to the string at index
     ///
@@ -56,7 +60,6 @@ pub struct ValText<T, E> {
 }
 
 impl<T, E> ValText<T, E> {
-    #[must_use]
     pub fn new(
         value_parser: impl Fn(&str) -> Result<T, E> + 'static,
         input_validator: impl Fn(&str, &str, usize) -> bool + 'static,
@@ -69,7 +72,6 @@ impl<T, E> ValText<T, E> {
         }
     }
 
-    #[must_use]
     pub fn new_box(
         value_parser: Box<dyn Fn(&str) -> Result<T, E>>,
         input_validator: Box<dyn Fn(&str, &str, usize) -> bool>,
@@ -82,7 +84,6 @@ impl<T, E> ValText<T, E> {
         }
     }
 
-    #[must_use]
     pub fn with_parser(validator: impl Fn(&str) -> Result<T, E> + 'static) -> Self {
         Self {
             text: String::new(),
@@ -100,7 +101,6 @@ impl<T, E> ValText<T, E> {
     /// ValText::with_parser_fixed_charset(|str| Ok(str.to_owned()), &['a', 'c']);
     /// ```
     /// Would allow 'a' and 'c' but no others.
-    #[must_use]
     pub fn with_parser_fixed_charset(
         parser: impl Fn(&str) -> Result<T, E> + 'static,
         charset: &'static [char],

@@ -6,12 +6,11 @@ use crate::ValText;
 impl ValText<Color32, egui::ecolor::ParseHexColorError> {
     /// A hex color starting with `#`, parsed using [`Color32::from_hex`].\
     /// Supports the 3, 4, 6, and 8-digit formats.
-    #[must_use]
     pub fn color_hex() -> Self {
         Self {
             text: String::new(),
             parsed_val: Some(Err(egui::ecolor::ParseHexColorError::MissingHash)),
-            value_parser: Box::new(|str| Color32::from_hex(str)),
+            value_parser: Box::new(Color32::from_hex),
             input_validator: Box::new(|_, s, i| {
                 if i == 0 {
                     return s.starts_with('#');
@@ -24,7 +23,6 @@ impl ValText<Color32, egui::ecolor::ParseHexColorError> {
 
 impl<T: FromStr> ValText<T, T::Err> {
     /// Only allows (0,1,2,3,4,5,6,7,8,9,.) and (-,+) at the beginning
-    #[must_use]
     pub fn number() -> Self {
         Self {
             text: String::new(),
@@ -44,7 +42,6 @@ impl<T: FromStr> ValText<T, T::Err> {
     }
 
     /// Only allows (0,1,2,3,4,5,6,7,8,9) and (-,+) at the beginning
-    #[must_use]
     pub fn number_int() -> Self {
         Self {
             text: String::new(),
@@ -60,7 +57,6 @@ impl<T: FromStr> ValText<T, T::Err> {
     }
 
     /// Only allows (0,1,2,3,4,5,6,7,8,9) and (+) at the beginning
-    #[must_use]
     pub fn number_uint() -> Self {
         Self {
             text: String::new(),
@@ -90,11 +86,12 @@ pub enum PercentageParseError {
     ParseInt(#[from] core::num::ParseIntError),
 }
 
+// todo add macro to reduce code duplecation or use numtraits as default optional feature
+
 impl ValText<f64, PercentageParseError> {
     // todo unit test
     /// A numarical percentage in the range of 0-100.\
     /// Only allows (0,1,2,3,4,5,6,7,8,9,.) and (+) at the beginning
-    #[must_use]
     pub fn percentage() -> Self {
         Self {
             text: String::new(),
@@ -157,7 +154,6 @@ impl ValText<f64, PercentageParseError> {
 impl ValText<f32, PercentageParseError> {
     /// A numarical percentage in the range of 0-100.\
     /// Only allows (0,1,2,3,4,5,6,7,8,9,.) and (+) at the beginning
-    #[must_use]
     pub fn percentage() -> Self {
         Self {
             text: String::new(),
@@ -217,10 +213,10 @@ impl ValText<f32, PercentageParseError> {
     }
 }
 
+// todo add allow % and require % at the end options
 impl ValText<u32, PercentageParseError> {
     /// A numarical percentage in the range of 0-100.\
     /// Only allows (0,1,2,3,4,5,6,7,8,9) and (+) at the beginning
-    #[must_use]
     pub fn percentage_uint() -> Self {
         Self {
             text: String::new(),
