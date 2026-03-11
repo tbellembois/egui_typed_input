@@ -113,8 +113,10 @@ impl ValText<f64, PercentageParseError> {
             }),
             input_validator: Box::new(|current_text, s, i| {
                 let current_text_no_des_len = current_text.split_once('.')
-                    .map(|(pre_dot, _)| pre_dot.len())
-                    .unwrap_or(current_text.len());
+                    .map_or(
+                        current_text.len(),
+                        |(pre_dot, _)| pre_dot.len()
+                    );
                 if current_text_no_des_len + s.len() > 3 && !current_text.contains('.') {
                     return false;
                 }
@@ -175,8 +177,10 @@ impl ValText<f32, PercentageParseError> {
             }),
             input_validator: Box::new(|current_text, s, i| {
                 let current_text_no_des_len = current_text.split_once('.')
-                    .map(|(pre_dot, _)| pre_dot.len())
-                    .unwrap_or(current_text.len());
+                    .map_or(
+                        current_text.len(),
+                        |(pre_dot, _)| pre_dot.len()
+                    );
                 if current_text_no_des_len + s.len() > 3 && !current_text.contains('.') {
                     return false;
                 }

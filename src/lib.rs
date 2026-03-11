@@ -49,13 +49,13 @@ pub struct ValText<T, E> {
     text: String,
     /// The value parsed from `text` if not empty (Option) and valid (Result)
     parsed_val: Option<Result<T, E>>,
-    /// A function run each time the text changes parsing it
+    /// A function run each time text changes parsing it
     value_parser: Box<dyn Fn(&str) -> Result<T, E>>,
     /// Whether a user input should be added to the string at index
     ///
     /// The signature is `(current_text, input, insertion_index) -> should_add_to_text`
     ///
-    /// Note: insertion_index is a character index, not a byte index.
+    /// Note: `insertion_index` is a character index, not a byte index.
     input_validator: Box<dyn Fn(&str, &str, usize) -> bool>,
 }
 
@@ -122,8 +122,7 @@ impl<T, E> ValText<T, E> {
     }
 
     pub fn is_valid(&self) -> bool {
-        self.parsed_val.as_ref().map(|res| res.is_ok())
-            .unwrap_or(false)
+        self.parsed_val.as_ref().is_some_and(Result::is_ok)
     }
 }
 
