@@ -1,6 +1,6 @@
 [package]
 name = "egui-typed-input"
-version = "0.1.2"
+version = "0.1.3"
 edition = "2024"
 description = "Type safe parsed egui text inputs, with user input checking"
 # based on work from SquareMan and BfBB-Clash
@@ -8,12 +8,13 @@ authors = ["TimTheBig"]
 
 # same license as egui
 license = "MIT OR Apache-2.0"
+
 readme = "README.md"
 documentation = "https://docs.rs/egui_typed_input"
 repository = "https://github.com/TimTheBig/egui_typed_input"
 
 keywords = ["egui", "text_edit", "type_checked", "egui_parse"]
-categories = ["gui"]
+categories = ["gui", "parsing"]
 
 [dependencies]
 egui = { version = ">= 0.32, < 0.34", default-features = false }
